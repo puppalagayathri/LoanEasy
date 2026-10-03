@@ -249,61 +249,51 @@
     z-index: 9999;
 }
             /* Hide normal menu */
+        .menu-links {
+    display: none;
 
-            .menu-links {
-                display: none;
+    position: absolute;
 
-                position: absolute;
+    top: 70px;
+    right: 20px;
 
-                top: 70px;
-                right: 20px;
+    width: 180px;
 
-                width: 180px;
+    flex-direction: column;
+    align-items: stretch;
 
-                flex-direction: column;
-                align-items: stretch;
+    background: rgba(0, 51, 102, 0.98);
 
-                background: rgba(0, 51, 102, 0.95);
+    padding: 15px;
 
-                padding: 15px;
+    border-radius: 8px;
 
-                border-radius: 8px;
-            }
+    z-index: 10000;
+}
 
-            /* Show menu when JS adds show */
+.menu-links.show {
+    display: flex !important;
+    pointer-events: auto !important;
+}
 
-            .menu-links.show {
-                display: flex;
-            }
+.menu-links a {
+    position: relative;
+    z-index: 10001;
 
-            .menu-links a {
-                display: block;
+    display: block;
 
-                margin: 0;
+    margin: 0;
 
-                padding: 12px;
+    padding: 12px;
 
-                text-align: center;
-            }
+    text-align: center;
 
-            .content {
-                width: 90%;
-                padding: 30px 15px;
-            }
+    color: white;
 
-            .content h1 {
-                font-size: 36px;
-            }
+    pointer-events: auto;
+}
 
-            .content p {
-                font-size: 18px;
-            }
 
-            .features-card {
-                width: 90%;
-                max-width: 300px;
-            }
-        }
 
     </style>
 
