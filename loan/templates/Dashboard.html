@@ -19,262 +19,179 @@
             font-family: Arial, sans-serif;
         }
 
-
         /* BODY */
 
         body {
             min-height: 100vh;
-
             background: transparent;
-
             position: relative;
-
             overflow-x: hidden;
         }
-
 
         /* BACKGROUND VIDEO */
 
         .video-background {
             position: fixed;
-
             top: 0;
             left: 0;
-
             width: 100%;
             height: 100%;
-
             object-fit: cover;
-
             z-index: -2;
         }
-
 
         /* VIDEO OVERLAY */
 
         .video-overlay {
             position: fixed;
-
             top: 0;
             left: 0;
-
             width: 100%;
             height: 100%;
-
             background: rgba(255, 255, 255, 0.25);
-
             z-index: -1;
         }
-
 
         /* NAVBAR */
 
         .navbar {
             background: rgba(31, 78, 121, 0.90);
-
             color: white;
-
             padding: 18px 40px;
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             position: relative;
-
             z-index: 2;
         }
-
 
         .navbar h2 {
             margin: 0;
         }
 
-
         .logout {
             color: white;
-
             text-decoration: none;
-
             background: #d9534f;
-
             padding: 8px 15px;
-
             border-radius: 5px;
         }
-
 
         .logout:hover {
             background: #c9302c;
         }
 
-
         /* MAIN CONTAINER */
 
         .container {
             width: 90%;
-
             max-width: 1000px;
-
             margin: 40px auto;
-
             position: relative;
-
             z-index: 1;
         }
-
 
         /* WELCOME */
 
         .welcome {
             background: rgba(255, 255, 255, 0.95);
-
             padding: 25px;
-
             border-radius: 10px;
-
             margin-bottom: 25px;
-
             box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
         }
 
-
         .welcome h1 {
             color: #1f4e79;
-
             margin-bottom: 10px;
         }
-
 
         .welcome p {
             color: #555;
         }
 
-
         /* APPLICATION CARD */
 
         .application-card {
             background: rgba(255, 255, 255, 0.95);
-
             padding: 25px;
-
             border-radius: 10px;
-
             box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
         }
 
-
         .application-card h2 {
             margin-top: 0;
-
             color: #1f4e79;
-
             margin-bottom: 10px;
         }
-
 
         /* DETAILS */
 
         .details {
             display: grid;
-
             grid-template-columns: 1fr 1fr;
-
             gap: 15px;
-
             margin-top: 20px;
         }
 
-
         .detail {
             padding: 12px;
-
             background: #f8f9fa;
-
             border-radius: 5px;
-
             color: #333;
         }
 
-
         .label {
             font-weight: bold;
-
             color: #1f4e79;
         }
-
 
         /* STATUS */
 
         .status {
             display: inline-block;
-
             padding: 7px 15px;
-
             border-radius: 20px;
-
             background: #fff3cd;
-
             color: #856404;
-
             font-weight: bold;
         }
-
 
         /* APPLY BUTTON */
 
         .apply-btn {
             display: inline-block;
-
             margin-top: 25px;
-
             background: #1f4e79;
-
             color: white;
-
             text-decoration: none;
-
             padding: 12px 20px;
-
             border-radius: 5px;
-
             font-weight: bold;
         }
-
 
         .apply-btn:hover {
             background: #163a5c;
         }
 
-
         /* NO APPLICATION */
 
         .no-application {
             background: rgba(255, 255, 255, 0.95);
-
             padding: 30px;
-
             border-radius: 10px;
-
             text-align: center;
-
             box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
         }
 
-
         .no-application h2 {
             color: #1f4e79;
-
             margin-bottom: 10px;
         }
-
 
         .no-application p {
             color: #555;
         }
-
 
         /* MOBILE */
 
@@ -322,9 +239,11 @@
 
     <h2>LoanEasy</h2>
 
-    <a href="/login/" class="logout">
-        Logout
+    <a href="{% url 'logout' %}" class="logout">
+    Logout
     </a>
+
+
 
 </div>
 
@@ -404,6 +323,19 @@
                 </span>
 
                 {{ application.tenure_months }} Months
+
+            </div>
+
+
+            <!-- EMI -->
+
+            <div class="detail">
+
+                <span class="label">
+                    Monthly EMI:
+                </span>
+
+                ₹{{ emi }}
 
             </div>
 

@@ -31,6 +31,7 @@ urlpatterns = [
     path('dashboard/', views.Dashboard, name='Dashboard'),
     path('apply_loan/', views.loan_application, name='loan_application'),
     path('success1/', views.success1, name='success1'),
+    path('logout/', views.logout_view, name='logout'),
 ]
 urlpatterns += static(
     settings.MEDIA_URL,
