@@ -1,0 +1,801 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Application</title>
+
+    <style>
+
+     body {
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 40px 20px;
+
+    font-family: Arial, sans-serif;
+
+    position: relative;
+}
+/* BACKGROUND VIDEO */
+
+.video-background {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    z-index: -2;
+  }
+
+/* VIDEO OVERLAY */
+
+.video-overlay {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(255, 255, 255, 0.20);
+
+    z-index: -1;
+}
+.step {
+    background: rgba(255, 255, 255, 0.88);
+
+    width: 650px;
+    max-width: calc(100vw - 40px);
+
+    margin: 0 auto;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.20);
+
+    padding: 30px;
+
+    backdrop-filter: blur(5px);
+}
+
+        h2,
+        h3 {
+            text-align: center;
+            color: #0b3d91;
+            margin-bottom: 25px;
+        }
+
+        h4 {
+            color: #0b3d91;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 8px;
+            vertical-align: middle;
+        }
+
+        td:first-child {
+            width: 40%;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 95%;
+            padding: 9px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        input[type="file"] {
+            border: none;
+            padding: 5px;
+        }
+
+        .btn-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .prevBtn,
+        .nextBtn,
+        .submitBtn {
+            padding: 10px 22px;
+            border-radius: 8px;
+            border: none;
+            background: #0b3d91;
+            color: white;
+            cursor: pointer;
+        }
+
+        .prevBtn:hover,
+        .nextBtn:hover,
+        .submitBtn:hover {
+            background: #082d6b;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+        }
+
+        .django-errors {
+            background: #ffe6e6;
+            border: 1px solid #ff9999;
+            padding: 10px;
+            margin-bottom: 15px;
+            color: #b30000;
+            border-radius: 6px;
+        }
+
+        .section-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+    </style>
+</head>
+
+
+<body>
+<video class="video-background" autoplay muted loop playsinline>
+
+    <source src="{% static 'videos/loan_application.mp4' %}" type="video/mp4">
+
+</video>
+
+<div class="video-overlay"></div>
+
+<form method="post"
+      enctype="multipart/form-data"
+      id="loanForm"
+      novalidate>
+
+    {% csrf_token %}
+
+
+    <!-- ========================= -->
+    <!-- STEP 1 PERSONAL DETAILS -->
+    <!-- ========================= -->
+
+    <div class="step" data-step="1">
+
+        <h2>Personal Details</h2>
+
+        {% if form.errors %}
+        <div class="django-errors">
+            Please check the form details before submitting.
+        </div>
+        {% endif %}
+
+
+        <table>
+
+            <tr>
+                <td>{{ form.full_name.label_tag }}</td>
+                <td>
+                    {{ form.full_name }}
+                    {{ form.full_name.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.dob.label_tag }}</td>
+                <td>
+                    {{ form.dob }}
+                    {{ form.dob.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.gender.label_tag }}</td>
+                <td>
+                    {{ form.gender }}
+                    {{ form.gender.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.email.label_tag }}</td>
+                <td>
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.phone.label_tag }}</td>
+                <td>
+                    {{ form.phone }}
+                    {{ form.phone.errors }}
+                </td>
+            </tr>
+
+        </table>
+
+
+        <h4>Address Details</h4>
+
+        <table>
+
+            <tr>
+                <td>{{ form.house_no.label_tag }}</td>
+                <td>
+                    {{ form.house_no }}
+                    {{ form.house_no.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.city.label_tag }}</td>
+                <td>
+                    {{ form.city }}
+                    {{ form.city.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.district.label_tag }}</td>
+                <td>
+                    {{ form.district }}
+                    {{ form.district.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.state.label_tag }}</td>
+                <td>
+                    {{ form.state }}
+                    {{ form.state.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.pincode.label_tag }}</td>
+                <td>
+                    {{ form.pincode }}
+                    {{ form.pincode.errors }}
+                </td>
+            </tr>
+
+        </table>
+
+
+        <div class="btn-row">
+
+            <button type="button"
+                    class="prevBtn"
+                    style="display:none;">
+                Previous
+            </button>
+
+            <button type="button"
+                    class="nextBtn">
+                Next
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================= -->
+    <!-- STEP 2 EMPLOYMENT -->
+    <!-- ========================= -->
+
+    <div class="step"
+         data-step="2"
+         style="display:none;">
+
+        <h3>Employment Details</h3>
+
+
+        <table>
+
+            <tr>
+                <td>{{ form.employment_type.label_tag }}</td>
+
+                <td>
+                    {{ form.employment_type }}
+                    {{ form.employment_type.errors }}
+                </td>
+            </tr>
+
+        </table>
+
+
+        <!-- SALARIED -->
+
+        <div id="salariedSection"
+             class="section-box" style="display:none;">
+
+            <h4>Salaried Details</h4>
+
+            <table>
+
+                <tr>
+                    <td>{{ form.company_name.label_tag }}</td>
+                    <td>
+                        {{ form.company_name }}
+                        {{ form.company_name.errors }}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>{{ form.job_designation.label_tag }}</td>
+                    <td>
+                        {{ form.job_designation }}
+                        {{ form.job_designation.errors }}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>{{ form.work_experience.label_tag }}</td>
+                    <td>
+                        {{ form.work_experience }}
+                        {{ form.work_experience.errors }}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>{{ form.monthly_income.label_tag }}</td>
+                    <td>
+                        {{ form.monthly_income }}
+                        {{ form.monthly_income.errors }}
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+
+        <!-- SELF EMPLOYED -->
+
+        <div id="selfEmployedSection"
+             class="section-box"  style="display:none;">
+
+            <h4>Self-Employed Details</h4>
+
+            <table>
+
+                <tr>
+                    <td>{{ form.business_name.label_tag }}</td>
+                    <td>
+                        {{ form.business_name }}
+                        {{ form.business_name.errors }}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>{{ form.business_type.label_tag }}</td>
+                    <td>
+                        {{ form.business_type }}
+                        {{ form.business_type.errors }}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>{{ form.business_experience.label_tag }}</td>
+                    <td>
+                        {{ form.business_experience }}
+                        {{ form.business_experience.errors }}
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>{{ form.annual_income.label_tag }}</td>
+                    <td>
+                        {{ form.annual_income }}
+                        {{ form.annual_income.errors }}
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+
+        <div class="btn-row">
+
+            <button type="button"
+                    class="prevBtn">
+                Previous
+            </button>
+
+            <button type="button"
+                    class="nextBtn">
+                Next
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ========================= -->
+    <!-- STEP 3 LOAN DETAILS -->
+    <!-- ========================= -->
+
+    <div class="step"
+         data-step="3"
+         style="display:none;">
+
+        <h3>Loan Details</h3>
+
+
+        <table>
+
+            <tr>
+                <td>{{ form.loan_type.label_tag }}</td>
+
+                <td>
+                    {{ form.loan_type }}
+                    {{ form.loan_type.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.amount.label_tag }}</td>
+
+                <td>
+                    {{ form.amount }}
+                    {{ form.amount.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.tenure_months.label_tag }}</td>
+
+                <td>
+                    {{ form.tenure_months }}
+                    {{ form.tenure_months.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.purpose.label_tag }}</td>
+
+                <td>
+                    {{ form.purpose }}
+                    {{ form.purpose.errors }}
+                </td>
+            </tr>
+
+        </table>
+
+
+
+        <!-- DOCUMENTS -->
+
+        <h4>Documents</h4>
+
+        <table>
+
+            <tr>
+                <td>{{ form.aadhaar_document.label_tag }}</td>
+
+                <td>
+                    {{ form.aadhaar_document }}
+                    {{ form.aadhaar_document.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.pan_document.label_tag }}</td>
+
+                <td>
+                    {{ form.pan_document }}
+                    {{ form.pan_document.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.income_proof.label_tag }}</td>
+
+                <td>
+                    {{ form.income_proof }}
+                    {{ form.income_proof.errors }}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>{{ form.bank_statement.label_tag }}</td>
+
+                <td>
+                    {{ form.bank_statement }}
+                    {{ form.bank_statement.errors }}
+                </td>
+            </tr>
+
+        </table>
+
+
+        <div class="btn-row">
+
+            <button type="button"
+                    class="prevBtn">
+                Previous
+            </button>
+
+            <button type="submit"
+                    class="submitBtn">
+                Submit
+            </button>
+
+        </div>
+
+    </div>
+
+
+</form>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("loanForm");
+
+    const steps = document.querySelectorAll(".step");
+
+    const nextButtons = document.querySelectorAll(".nextBtn");
+
+    const prevButtons = document.querySelectorAll(".prevBtn");
+
+    let currentStep = 0;
+
+
+    // Enable / disable fields
+    function setFieldsDisabled(container, disabled) {
+
+        if (!container) {
+            return;
+        }
+
+        container
+            .querySelectorAll("input, select, textarea")
+            .forEach(function (field) {
+
+                field.disabled = disabled;
+
+            });
+    }
+
+
+    // Employment fields
+    const employmentSelect =
+        document.getElementById("id_employment_type");
+
+    const salariedSection =
+        document.getElementById("salariedSection");
+
+    const selfEmployedSection =
+        document.getElementById("selfEmployedSection");
+
+
+    // Show / hide employment fields
+    function toggleEmploymentFields() {
+
+        if (!employmentSelect) {
+            return;
+        }
+
+        const value = employmentSelect.value;
+
+
+        // SALARIED
+        if (value === "Salaried") {
+
+            salariedSection.style.display = "block";
+
+            selfEmployedSection.style.display = "none";
+
+            setFieldsDisabled(
+                salariedSection,
+                false
+            );
+
+            setFieldsDisabled(
+                selfEmployedSection,
+                true
+            );
+        }
+
+
+        // SELF-EMPLOYED
+        else if (value === "Self-employed") {
+
+            salariedSection.style.display = "none";
+
+            selfEmployedSection.style.display = "block";
+
+            setFieldsDisabled(
+                salariedSection,
+                true
+            );
+
+            setFieldsDisabled(
+                selfEmployedSection,
+                false
+            );
+        }
+
+
+        // NOTHING SELECTED
+        else {
+
+            salariedSection.style.display = "none";
+
+            selfEmployedSection.style.display = "none";
+
+            setFieldsDisabled(
+                salariedSection,
+                true
+            );
+
+            setFieldsDisabled(
+                selfEmployedSection,
+                true
+            );
+        }
+    }
+
+
+    // Show current step
+    function showStep(step) {
+
+        steps.forEach(function (item, index) {
+
+            if (index === step) {
+
+                item.style.display = "block";
+
+            } else {
+
+                item.style.display = "none";
+
+            }
+        });
+
+
+        // Previous button
+        prevButtons.forEach(function (button) {
+
+            button.style.display =
+                currentStep > 0
+                    ? "inline-block"
+                    : "none";
+
+        });
+
+
+        // Employment fields
+        if (currentStep === 1) {
+
+            toggleEmploymentFields();
+
+        }
+    }
+
+
+    // NEXT BUTTON
+    nextButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            if (currentStep < steps.length - 1) {
+
+                currentStep++;
+
+                showStep(currentStep);
+
+            }
+
+        });
+
+    });
+
+
+    // PREVIOUS BUTTON
+    prevButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            if (currentStep > 0) {
+
+                currentStep--;
+
+                showStep(currentStep);
+
+            }
+
+        });
+
+    });
+
+
+    // Employment type change
+    if (employmentSelect) {
+
+        employmentSelect.addEventListener(
+            "change",
+            toggleEmploymentFields
+        );
+
+    }
+
+
+    // FORM SUBMIT
+    form.addEventListener("submit", function () {
+
+        console.log("🔥 FORM SUBMITTED");
+
+        console.log(
+            "Method:",
+            form.method
+        );
+
+        console.log(
+            "Action:",
+            form.action
+        );
+
+    });
+
+
+    // START WITH STEP 1
+    showStep(currentStep);
+
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LoanEasy - Login</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* BACKGROUND VIDEO */
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            z-index: -2;
+        }
+
+        /* VIDEO OVERLAY */
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background: rgba(255, 255, 255, 0.25);
+
+            z-index: -1;
+        }
+
+        /* LOGIN BOX */
+
+        .login-box {
+            width: 350px;
+
+            margin: 150px auto;
+
+            background: rgba(255, 255, 255, 0.94);
+
+            padding: 40px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+
+            color: #222;
+        }
+
+        /* HEADING */
+
+        h2 {
+            text-align: center;
+
+            margin-bottom: 25px;
+
+            color: #003366;
+
+            font-size: 28px;
+        }
+
+        /* MESSAGE */
+
+        .message {
+            text-align: center;
+
+            color: red;
+
+            margin-bottom: 15px;
+        }
+
+        /* INPUT AREA */
+
+        .box {
+            width: 100%;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 6px;
+
+            color: #003366;
+
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 10px;
+
+            border: 1px solid #bbb;
+
+            border-radius: 5px;
+
+            margin-bottom: 15px;
+        }
+
+        /* BUTTON */
+
+        button {
+            padding: 10px 30px;
+
+            background: #ff9800;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e68900;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- BACKGROUND VIDEO -->
+
+    <video class="video-background" autoplay muted loop playsinline>
+
+        <source src="{% static 'videos/registration.mp4' %}" type="video/mp4">
+
+    </video>
+
+
+    <!-- VIDEO OVERLAY -->
+
+    <div class="video-overlay"></div>
+
+
+    <!-- LOGIN FORM -->
+
+    <div class="login-box">
+
+        <h2>Login</h2>
+
+        {% if msg %}
+            <div class="message">
+                {{ msg }}
+            </div>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="POST">
+
+            {% csrf_token %}
+
+            <div class="box">
+
+                <label>Username</label>
+
+                <input
+                    type="text"
+                    name="uname"
+                    placeholder="Enter your username"
+                    required
+                >
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    name="pwd"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+            <div style="text-align:center;">
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+</body>
+
+</html>

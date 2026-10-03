@@ -1,0 +1,89 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    background: #003366;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+/* Home section */
+.Box {
+    min-height: 480px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+/* Main text - NO BLACK BOX */
+.content {
+    width: 80%;
+    max-width: 850px;
+    height: auto;
+    padding: 20px;
+    background: transparent !important;
+    color: white;
+    border-radius: 0;
+    text-align: center;
+}
+
+/* Heading */
+.content h1 {
+    font-size: 52px;
+    margin-bottom: 15px;
+
+    color: #003366;
+    text-shadow: 1px 1px 3px white;
+}
+
+.content p {
+    font-size: 21px;
+    margin-bottom: 30px;
+
+    color: #003366;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px white;
+}
+
+/* Button */
+.button {
+    padding: 12px 25px;
+    background: #ff9800;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* Features */
+.features {
+    padding: 50px;
+    text-align: center;
+    gap: 30px;
+}
+
+/* Feature cards */
+.features-card {
+    display: inline-block;
+    width: 250px;
+    padding: 20px;
+    margin: 15px;
+    box-shadow: 0 0 10px lightgray;
+    border-radius: 10px;
+    align-items: center;
+}

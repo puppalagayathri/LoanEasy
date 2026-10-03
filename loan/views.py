@@ -1,0 +1,108 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth.decorators import login_required
+from .forms import CustomerForm, LoanApplicationForm
+from .models import LoanApplication
+
+
+# Home page
+def home(request):
+    return render(request, 'home.html')
+
+
+# Registration
+def register(request):
+    if request.method == 'POST':
+        form = CustomerForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+
+    else:
+        form = CustomerForm()
+
+    return render(request, 'register.html', {'form': form})
+
+
+# Registration success
+def success(request):
+    return render(request, 'success.html')
+
+
+# Login
+def login(request):
+    if request.method == 'POST':
+
+        username = request.POST.get('uname')
+        password = request.POST.get('pwd')
+
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
+
+        if user is not None:
+            auth_login(request, user)
+
+            next_url = request.GET.get('next')
+
+            if next_url:
+                return redirect(next_url)
+
+            return redirect('Dashboard')
+
+        return render(
+            request,
+            'login.html',
+            {'msg': 'Invalid username and password'}
+        )
+
+    return render(request, 'login.html')
+
+
+# Dashboard
+@login_required
+def Dashboard(request):
+    application = LoanApplication.objects.filter(
+        user=request.user
+    ).order_by('-applied_on').first()
+
+    return render(
+        request,
+        'dashboard.html',
+        {'application': application}
+    )
+
+
+# Loan Application
+@login_required
+def loan_application(request):
+    if request.method == 'POST':
+
+        form = LoanApplicationForm(
+            request.POST,
+            request.FILES
+        )
+
+        if form.is_valid():
+            loan = form.save(commit=False)
+            loan.user = request.user
+            loan.save()
+
+            return redirect('success1')
+
+    else:
+        form = LoanApplicationForm()
+
+    return render(
+        request,
+        'apply_loan.html',
+        {'form': form}
+    )
+
+
+# Application success
+def success1(request):
+    return render(request, 'success1.html')

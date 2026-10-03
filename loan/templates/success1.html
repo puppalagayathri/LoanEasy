@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Submitted</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        position: relative;
+
+        overflow: hidden;
+    }
+
+
+    /* BACKGROUND VIDEO */
+
+    .video-background {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+
+        z-index: -2;
+    }
+
+
+    /* VIDEO OVERLAY */
+
+    .video-overlay {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        background: rgba(255, 255, 255, 0.20);
+
+        z-index: -1;
+    }
+
+
+    /* SUCCESS CARD */
+
+    .success-card {
+        background: rgba(255, 255, 255, 0.95);
+
+        width: 90%;
+        max-width: 450px;
+
+        padding: 40px;
+
+        text-align: center;
+
+        border-radius: 15px;
+
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.20);
+    }
+
+
+    h2 {
+        color: #0b3d91;
+
+        margin-bottom: 15px;
+    }
+
+
+    p {
+        color: #555;
+
+        font-size: 16px;
+
+        line-height: 1.6;
+    }
+
+
+    .btn {
+        display: inline-block;
+
+        margin-top: 20px;
+
+        padding: 12px 25px;
+
+        background: #0b3d91;
+
+        color: white;
+
+        text-decoration: none;
+
+        border-radius: 8px;
+    }
+
+
+    .btn:hover {
+        background: #082d6b;
+    }
+
+</style>
+</head>
+<body>
+<video class="video-background" autoplay muted loop playsinline>
+
+    <source src="{% static 'videos/loan_application.mp4' %}" type="video/mp4">
+
+</video>
+
+
+<div class="success-card">
+
+    <h2>Application Submitted Successfully! 🎉</h2>
+
+    <p>
+        Your loan application has been submitted successfully.
+    </p>
+
+    <p>
+        Thank you for choosing LoanEasy.
+    </p>
+
+    <a href="{% url 'Dashboard' %}" class="btn">Back to Dashboard</a>
+
+</div>
+
+
+
+</body>
+</html>
