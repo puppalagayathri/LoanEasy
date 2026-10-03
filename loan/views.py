@@ -74,6 +74,7 @@ def logout_view(request):
     auth_logout(request)
     return redirect('login')
 
+
 @login_required
 def Dashboard(request):
     application = LoanApplication.objects.filter(
@@ -87,12 +88,14 @@ def Dashboard(request):
 
     return render(
         request,
-        'dashboard.html',
+        'Dashboard.html',
         {
             'application': application,
             'emi': emi
         }
     )
+
+
 
 
 # Loan Application
