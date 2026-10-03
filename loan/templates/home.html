@@ -12,176 +12,201 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <style>
-
         * {
             box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             margin: 0;
             padding: 0;
+            min-height: 100vh;
             font-family: Arial, sans-serif;
+            background: #001b33;
             color: white;
-            background: black;
+            overflow-x: hidden;
         }
 
-        /* ================= VIDEO ================= */
+        /* ================= BACKGROUND VIDEO ================= */
 
         .video-background {
             position: fixed;
-            top: 0;
-            left: 0;
-
+            inset: 0;
             width: 100%;
             height: 100%;
-
             object-fit: cover;
-
-            z-index: 0;
+            z-index: -3;
         }
 
         /* ================= OVERLAY ================= */
 
         .video-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-
+            inset: 0;
             width: 100%;
             height: 100%;
-
-            background: rgba(0, 0, 0, 0.15);
-
-            z-index: 1;
+            background: linear-gradient(
+                rgba(0, 20, 40, 0.55),
+                rgba(0, 20, 40, 0.70)
+            );
+            z-index: -2;
         }
 
         /* ================= NAVBAR ================= */
 
         .navbar {
             position: relative;
-            z-index: 2;
+            z-index: 1000;
 
-            height: 70px;
+            width: 100%;
+            min-height: 70px;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
-            padding: 0 40px;
+            padding: 0 6%;
 
-            background: rgba(0, 51, 102, 0.35);
+            background: rgba(0, 32, 64, 0.88);
+            backdrop-filter: blur(8px);
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .navbar h2 {
             margin: 0;
+            color: white;
             font-size: 28px;
+            letter-spacing: 0.5px;
         }
 
-        /* Desktop menu */
+        /* ================= DESKTOP MENU ================= */
 
         .menu-links {
             display: flex;
             align-items: center;
+            gap: 30px;
         }
 
         .menu-links a {
+            display: block;
+
             color: white;
             text-decoration: none;
 
-            margin-left: 25px;
-
+            font-size: 16px;
             font-weight: bold;
+
+            padding: 10px 4px;
+
+            transition: 0.25s;
         }
 
         .menu-links a:hover {
-            color: #ff9800;
+            color: #ffb020;
         }
 
-        /* Hamburger button */
+        /* ================= HAMBURGER ================= */
 
         .menu-button {
             display: none;
 
-            background: transparent;
-            border: none;
+            width: 48px;
+            height: 44px;
+
+            padding: 0;
+
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+
+            background: rgba(255, 255, 255, 0.10);
 
             color: white;
 
-            font-size: 30px;
-            line-height: 1;
+            font-size: 27px;
+            line-height: 44px;
+
+            text-align: center;
 
             cursor: pointer;
 
-            padding: 5px;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* ================= MAIN ================= */
+        .menu-button:active {
+            transform: scale(0.96);
+        }
+
+        /* ================= HERO ================= */
 
         .Box {
             position: relative;
-            z-index: 2;
+            z-index: 1;
 
-            min-height: 500px;
+            min-height: calc(100vh - 70px);
 
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
 
-            text-align: center;
+            padding: 60px 20px;
         }
 
         .content {
-            width: 70%;
-
-            padding: 60px;
-
-            color: white;
-
+            width: min(800px, 100%);
             text-align: center;
+
+            padding: 20px;
         }
 
         .content h1 {
-            font-size: 52px;
+            margin: 0 0 20px;
 
-            margin-bottom: 15px;
+            font-size: clamp(38px, 6vw, 64px);
+            line-height: 1.1;
 
-            color: #003366;
+            color: white;
 
-            text-shadow: 1px 1px 3px white;
+            text-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
         }
 
         .content p {
-            font-size: 21px;
+            margin: 0 0 35px;
 
-            margin-bottom: 30px;
+            font-size: clamp(18px, 2.5vw, 24px);
+            line-height: 1.5;
 
-            color: #003366;
-
-            font-weight: bold;
-
-            text-shadow: 1px 1px 3px white;
+            color: #f2f7ff;
         }
 
-        /* ================= BUTTON ================= */
+        /* ================= MAIN BUTTON ================= */
 
         .button {
             display: inline-block;
 
-            padding: 13px 30px;
+            padding: 15px 34px;
 
             background: #ff9800;
-
             color: white;
 
             text-decoration: none;
 
-            border-radius: 6px;
+            border-radius: 8px;
 
+            font-size: 17px;
             font-weight: bold;
+
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+            transition: 0.25s;
         }
 
         .button:hover {
             background: #e68900;
+            transform: translateY(-2px);
         }
 
         /* ================= FEATURES ================= */
@@ -190,111 +215,221 @@
             position: relative;
             z-index: 2;
 
+            width: 100%;
+
+            padding: 30px 6% 70px;
+
             text-align: center;
 
-            padding: 30px 20px 60px;
+            background: rgba(0, 20, 40, 0.45);
+        }
+
+        .features > h2 {
+            margin: 0 0 25px;
+
+            font-size: 30px;
+            color: white;
+        }
+
+        .features-container {
+            display: flex;
+
+            justify-content: center;
+            align-items: stretch;
+
+            flex-wrap: wrap;
+
+            gap: 20px;
         }
 
         .features-card {
-            display: inline-block;
+            width: 250px;
+            min-height: 150px;
 
-            vertical-align: top;
+            padding: 25px 20px;
 
-            width: 220px;
-
-            min-height: 120px;
-
-            margin: 10px;
-
-            padding: 20px;
-
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.94);
 
             color: #222;
 
-            border-radius: 10px;
+            border-radius: 12px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+
+            transition: 0.25s;
+        }
+
+        .features-card:hover {
+            transform: translateY(-5px);
         }
 
         .features-card h3 {
+            margin-top: 0;
+
             color: #003366;
+            font-size: 20px;
+        }
+
+        .features-card p {
+            margin-bottom: 0;
+
+            line-height: 1.5;
+            font-size: 15px;
         }
 
         /* ================= MOBILE ================= */
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
 
             .navbar {
-                padding: 0 20px;
+                min-height: 64px;
+                padding: 0 18px;
+            }
+
+            .navbar h2 {
+                font-size: 24px;
             }
 
             /* Show hamburger */
 
             .menu-button {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+                display: block;
+                position: relative;
+                z-index: 10002;
+            }
 
-    background: black !important;
-    border: 2px solid white !important;
+            /* Mobile menu */
 
-    color: white !important;
+            .menu-links {
+                display: none;
 
-    font-size: 35px !important;
-    width: 55px;
-    height: 50px;
+                position: absolute;
 
-    cursor: pointer;
+                top: 64px;
+                right: 12px;
 
-    position: relative;
-    z-index: 9999;
-}
-            /* Hide normal menu */
-        .menu-links {
-    display: none;
+                width: calc(100% - 24px);
+                max-width: 280px;
 
-    position: absolute;
+                padding: 10px;
 
-    top: 70px;
-    right: 20px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
 
-    width: 180px;
+                background: rgba(0, 32, 64, 0.98);
 
-    flex-direction: column;
-    align-items: stretch;
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                border-radius: 12px;
 
-    background: rgba(0, 51, 102, 0.98);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 
-    padding: 15px;
+                z-index: 10001;
+            }
 
-    border-radius: 8px;
+            /* JavaScript opens this */
 
-    z-index: 10000;
-}
+            .menu-links.show {
+                display: flex;
+            }
 
-.menu-links.show {
-    display: flex !important;
-    pointer-events: auto !important;
-}
+            .menu-links a {
+                width: 100%;
 
-.menu-links a {
-    position: relative;
-    z-index: 10001;
+                padding: 15px 14px;
 
-    display: block;
+                border-radius: 8px;
 
-    margin: 0;
+                font-size: 17px;
 
-    padding: 12px;
+                color: white;
 
-    text-align: center;
+                text-align: center;
 
-    color: white;
+                cursor: pointer;
 
-    pointer-events: auto;
-}
+                touch-action: manipulation;
 
+                -webkit-tap-highlight-color: transparent;
+            }
 
+            .menu-links a:hover,
+            .menu-links a:active {
+                background: rgba(255, 152, 0, 0.20);
+                color: #ffb020;
+            }
 
+            /* Hero */
+
+            .Box {
+                min-height: calc(100vh - 64px);
+
+                padding: 40px 16px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .content h1 {
+                font-size: 38px;
+            }
+
+            .content p {
+                font-size: 18px;
+                margin-bottom: 28px;
+            }
+
+            .button {
+                width: 100%;
+                max-width: 260px;
+
+                padding: 15px 20px;
+
+                font-size: 16px;
+            }
+
+            /* Features */
+
+            .features {
+                padding: 35px 16px 50px;
+            }
+
+            .features > h2 {
+                font-size: 26px;
+            }
+
+            .features-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .features-card {
+                width: 100%;
+                max-width: 340px;
+            }
+        }
+
+        /* ================= SMALL PHONES ================= */
+
+        @media (max-width: 380px) {
+
+            .navbar {
+                padding: 0 14px;
+            }
+
+            .navbar h2 {
+                font-size: 22px;
+            }
+
+            .content h1 {
+                font-size: 32px;
+            }
+
+            .content p {
+                font-size: 17px;
+            }
+        }
     </style>
 
 </head>
@@ -303,9 +438,17 @@
 
     <!-- ================= BACKGROUND VIDEO ================= -->
 
-    <video class="video-background" autoplay muted loop playsinline>
+    <video
+        class="video-background"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata">
 
-        <source src="{% static 'videos/video.mp4' %}" type="video/mp4">
+        <source
+            src="{% static 'videos/video.mp4' %}"
+            type="video/mp4">
 
     </video>
 
@@ -317,22 +460,21 @@
 
     <!-- ================= NAVBAR ================= -->
 
-    <div class="navbar">
+    <nav class="navbar">
 
         <h2>LoanEasy</h2>
-
-        <!-- Hamburger -->
 
         <button
             type="button"
             class="menu-button"
-            onclick="toggleMenu()"
-            aria-label="Open menu">
+            id="menuButton"
+            aria-label="Open menu"
+            aria-expanded="false">
+
             ☰
+
         </button>
 
-
-        <!-- Menu links -->
 
         <div class="menu-links" id="menuLinks">
 
@@ -344,18 +486,20 @@
 
         </div>
 
-    </div>
+    </nav>
 
 
     <!-- ================= MAIN CONTENT ================= -->
 
-    <div class="Box">
+    <main class="Box">
 
         <div class="content">
 
             <h1>Your Trusted Loan Partner</h1>
 
-            <p>Fast, Secure and Easy Approval</p>
+            <p>
+                Fast, Secure and Easy Approval
+            </p>
 
             <a href="/register/" class="button">
                 Get Started
@@ -363,70 +507,125 @@
 
         </div>
 
-    </div>
+    </main>
 
 
     <!-- ================= FEATURES ================= -->
 
-    <div class="features">
+    <section class="features">
 
         <h2>Why Choose Us?</h2>
 
+        <div class="features-container">
 
-        <div class="features-card">
+            <div class="features-card">
 
-            <h3>Quick Approval</h3>
+                <h3>Quick Approval</h3>
 
-            <p>
-                Get your loan application processed quickly.
-            </p>
+                <p>
+                    Get your loan application processed quickly.
+                </p>
+
+            </div>
+
+
+            <div class="features-card">
+
+                <h3>Low Interest</h3>
+
+                <p>
+                    Affordable interest rates for your needs.
+                </p>
+
+            </div>
+
+
+            <div class="features-card">
+
+                <h3>Secure Process</h3>
+
+                <p>
+                    Your information is handled securely.
+                </p>
+
+            </div>
 
         </div>
 
-
-        <div class="features-card">
-
-            <h3>Low Interest</h3>
-
-            <p>
-                Affordable interest rates for your needs.
-            </p>
-
-        </div>
+    </section>
 
 
-        <div class="features-card">
+    <!-- ================= JAVASCRIPT ================= -->
 
-            <h3>Secure Process</h3>
+    <script>
 
-            <p>
-                Your information is handled securely.
-            </p>
+        document.addEventListener("DOMContentLoaded", function () {
 
-        </div>
+            const menuButton =
+                document.getElementById("menuButton");
 
-    </div>
-     <script>
-    function toggleMenu() {
-        const menu = document.getElementById("menuLinks");
-        menu.classList.toggle("show");
-    }
-   </script>
+            const menuLinks =
+                document.getElementById("menuLinks");
 
 
+            menuButton.addEventListener("click", function (event) {
 
+                event.preventDefault();
+                event.stopPropagation();
+
+                const isOpen =
+                    menuLinks.classList.toggle("show");
+
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    isOpen ? "true" : "false"
+                );
+
+            });
+
+
+            /* Close menu after clicking a link */
+
+            menuLinks.querySelectorAll("a").forEach(function (link) {
+
+                link.addEventListener("click", function () {
+
+                    menuLinks.classList.remove("show");
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                });
+
+            });
+
+
+            /* Close menu when clicking outside */
+
+            document.addEventListener("click", function (event) {
+
+                if (
+                    !menuLinks.contains(event.target) &&
+                    !menuButton.contains(event.target)
+                ) {
+
+                    menuLinks.classList.remove("show");
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+
+            });
+
+        });
+
+    </script>
 
 </body>
-<!-- ================= JAVASCRIPT ================= -->
-
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById("menuLinks");
-        menu.classList.toggle("show");
-    }
-</script>
-
-</body>
-
 
 </html>
