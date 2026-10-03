@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login as auth_login , logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from .forms import CustomerForm, LoanApplicationForm
 from .models import LoanApplication
 
@@ -16,14 +17,21 @@ def register(request):
         form = CustomerForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            customer = form.save()
+
+            # Create Django login account
+            User.objects.create_user(
+                username=customer.username,
+                email=customer.email,
+                password=customer.password
+            )
+
             return redirect('success')
 
     else:
         form = CustomerForm()
 
     return render(request, 'register.html', {'form': form})
-
 
 # Registration success
 def success(request):
@@ -37,20 +45,20 @@ def login(request):
         username = request.POST.get('uname')
         password = request.POST.get('pwd')
 
+        print("LOGIN VIEW CALLED")
+        print("USERNAME:", repr(username))
+        print("PASSWORD RECEIVED:", bool(password))
+
         user = authenticate(
             request,
             username=username,
             password=password
         )
 
+        print("AUTHENTICATED USER:", user)
+
         if user is not None:
             auth_login(request, user)
-
-            next_url = request.GET.get('next')
-
-            if next_url:
-                return redirect(next_url)
-
             return redirect('Dashboard')
 
         return render(
@@ -60,7 +68,6 @@ def login(request):
         )
 
     return render(request, 'login.html')
-
 
 # Dashboard
 def logout_view(request):

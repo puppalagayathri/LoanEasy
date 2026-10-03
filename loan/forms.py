@@ -3,12 +3,10 @@ from .models import Customer
 from.models import LoanApplication
 
 class CustomerForm(forms.ModelForm):
+
     class Meta:
         model = Customer
         fields = '__all__'
-
-
-
 
 class LoanApplicationForm(forms.ModelForm):
 
