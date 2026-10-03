@@ -18,57 +18,67 @@
             font-family: Arial, sans-serif;
         }
 
+        html {
+            min-height: 100%;
+        }
+
         body {
             min-height: 100vh;
-            overflow: hidden;
+            margin: 0;
+            padding: 30px 15px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            background: #002b4d;
         }
 
         /* BACKGROUND VIDEO */
+
         .video-background {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
 
             width: 100%;
             height: 100%;
 
             object-fit: cover;
 
-            z-index: -2;
+            z-index: -3;
         }
 
-        /* VIDEO OVERLAY */
+        /* DARK OVERLAY */
+
         .video-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
 
             width: 100%;
             height: 100%;
 
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(0, 25, 50, 0.55);
 
-            z-index: -1;
+            z-index: -2;
         }
 
         /* REGISTRATION BOX */
+
         .register-box {
-            width: 450px;
+            width: min(450px, 100%);
 
-            margin: 60px auto;
+            margin: 20px auto;
 
-            background: rgba(255, 255, 255, 0.94);
+            background: rgba(255, 255, 255, 0.96);
 
             padding: 30px;
 
-            border-radius: 12px;
+            border-radius: 14px;
 
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 
             color: #222;
         }
 
         /* HEADING */
+
         h2 {
             text-align: center;
 
@@ -80,28 +90,53 @@
         }
 
         /* FORM */
+
         table {
             width: 100%;
+            border-collapse: collapse;
         }
 
         td {
             padding: 7px;
+            vertical-align: middle;
+        }
+
+        td:first-child {
+            width: 35%;
+            font-weight: bold;
+            color: #003366;
         }
 
         input,
-        select {
-            padding: 8px;
-
+        select,
+        textarea {
             width: 100%;
+
+            padding: 10px;
 
             border: 1px solid #bbb;
 
-            border-radius: 5px;
+            border-radius: 6px;
+
+            font-size: 15px;
+
+            background: white;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+
+            border-color: #ff9800;
+
+            box-shadow: 0 0 4px rgba(255, 152, 0, 0.35);
         }
 
         /* BUTTON */
+
         button {
-            padding: 10px 25px;
+            padding: 12px 30px;
 
             background: #ff9800;
 
@@ -109,15 +144,97 @@
 
             border: none;
 
-            border-radius: 5px;
+            border-radius: 7px;
+
+            font-size: 16px;
 
             font-weight: bold;
 
             cursor: pointer;
+
+            transition: 0.2s;
         }
 
         button:hover {
             background: #e68900;
+
+            transform: translateY(-1px);
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 15px 10px;
+            }
+
+            .register-box {
+                width: 100%;
+
+                margin: 10px auto;
+
+                padding: 20px 15px;
+
+                border-radius: 12px;
+            }
+
+            h2 {
+                font-size: 23px;
+
+                margin-bottom: 18px;
+            }
+
+            table,
+            tbody,
+            tr,
+            td {
+                display: block;
+                width: 100%;
+            }
+
+            td {
+                padding: 5px 0;
+            }
+
+            td:first-child {
+                margin-top: 8px;
+
+                margin-bottom: 3px;
+
+                font-size: 14px;
+            }
+
+            input,
+            select,
+            textarea {
+                padding: 11px;
+
+                font-size: 16px;
+            }
+
+            button {
+                width: 100%;
+
+                padding: 13px;
+            }
+        }
+
+        /* VERY SMALL MOBILE */
+
+        @media (max-width: 380px) {
+
+            body {
+                padding: 10px 7px;
+            }
+
+            .register-box {
+                padding: 18px 12px;
+            }
+
+            h2 {
+                font-size: 21px;
+            }
         }
 
     </style>
@@ -128,9 +245,17 @@
 
     <!-- BACKGROUND VIDEO -->
 
-    <video class="video-background" autoplay muted loop playsinline>
+    <video
+        class="video-background"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata">
 
-        <source src="{% static 'videos/registration.mp4' %}" type="video/mp4">
+        <source
+            src="{% static 'videos/registration.mp4' %}"
+            type="video/mp4">
 
     </video>
 
@@ -151,7 +276,9 @@
             {% csrf_token %}
 
             <table>
+
                 {{ form.as_table }}
+
             </table>
 
             <br>
@@ -167,6 +294,7 @@
         </form>
 
     </div>
+
 
 </body>
 
