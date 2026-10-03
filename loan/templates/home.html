@@ -416,34 +416,27 @@
         </div>
 
     </div>
+     <script>
+    function toggleMenu() {
+        const menu = document.getElementById("menuLinks");
+        menu.classList.toggle("show");
+    }
+   </script>
 
 
-    <!-- ================= JAVASCRIPT ================= -->
 
-    <script>
-
-        function toggleMenu() {
-
-            const menu = document.getElementById("menuLinks");
-
-            menu.classList.toggle("show");
-
-        }
-
-    </script>
 
 </body>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const menuButton = document.querySelector(".navbar-toggler");
-    const menu = document.querySelector(".navbar-collapse");
+<!-- ================= JAVASCRIPT ================= -->
 
-    if (menuButton && menu) {
-        menuButton.addEventListener("click", function () {
-            menu.classList.toggle("show");
-        });
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menuLinks");
+        menu.classList.toggle("show");
     }
-});
 </script>
+
+</body>
+
 
 </html>
